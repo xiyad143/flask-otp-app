@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riyad Mahfuz</title>
+    <!-- Font Awesome CSS for contact and button icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary: #4a6bff; /* Vibrant blue for primary elements */
+            --primary-dark: #3a56cc;
+            --secondary: #e8f0fe; /* Light blue for section backgrounds */
+            --success: #4caf50; /* Green for success alerts */
+            --danger: #f44336; /* Red for error alerts */
+            --warning: #ff9800; /* Orange for warnings */
+            --info: #2196f3; /* Blue for info */
+            --bg: #f5f7ff; /* Light blueish background */
+            --text: #2d3748; /* Dark gray-blue for text */
+            --text-light: #718096;
+            --accent: #ffffff; /* White for cards */
+            --border: #e2e8f0; /* Light gray for borders */
+            --facebook: #3b5998; /* Facebook brand color */
+            --whatsapp: #25d366; /* WhatsApp brand color */
+            --telegram: #0088cc; /* Telegram brand color */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--accent);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .alert.success { background: var(--success); color: white; }
+        .alert.error { background: var(--danger); color: white; }
+        .alert.info { background: var(--info); color: white; }
+        .alert.warning { background: var(--warning); color: white; }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+            background: var(--accent);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(74, 107, 255, 0.2);
+            outline: none;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button:hover { 
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .account-info {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 6px;
+            background: var(--secondary);
+            border-left: 4px solid var(--primary);
+        }
+        .account-info h3 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 500;
+            flex-grow: 1;
+            color: var(--text);
+        }
+        .account-info button.copy-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            background: var(--primary);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            padding: 8px 14px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .action-btn:hover { 
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .action-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .action-btn i { font-size: 13px; }
+        .tooltip {
+            position: relative;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background: var(--text);
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            border-radius: 4px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .otp-section {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background: var(--secondary);
+            font-size: 14px;
+            border-left: 4px solid var(--success);
+        }
+        .otp-section h3 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .otp-section button {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .inbox-section {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            background: var(--secondary);
+            border-left: 4px solid var(--info);
+        }
+        .inbox-section h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        .inbox-section input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            background: var(--accent);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        .inbox-section input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(74, 107, 255, 0.2);
+            outline: none;
+        }
+        .message {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            background: var(--accent);
+        }
+        .message:hover { 
+            background: var(--secondary);
+            transform: translateX(2px);
+        }
+        .message.selected { 
+            border-left: 4px solid var(--primary);
+            background: var(--secondary);
+        }
+        .message.facebook { 
+            border-left: 4px solid var(--facebook);
+            background: rgba(59, 89, 152, 0.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(3px);
+        }
+        .modal-content {
+            background: var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            position: relative;
+        }
+        .modal-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .modal-content p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        .modal-content .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+        .modal-content .close-btn:hover {
+            color: var(--danger);
+        }
+
+        .contact-info {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        .contact-links {
+            display: flex;
+            gap: 15px;
+        }
+        .contact-link {
+            color: var(--text-light);
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .contact-link:hover { 
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .contact-link.phone:hover { color: var(--success); }
+        .contact-link.email:hover { color: var(--danger); }
+        .contact-link.facebook:hover { color: var(--facebook); }
+        .contact-link.whatsapp:hover { color: var(--whatsapp); }
+        .contact-link.telegram:hover { color: var(--telegram); }
+
+        @media (max-width: 600px) {
+            .container { padding: 18px; }
+            button, .action-btn { padding: 8px 14px; }
+            .form-group textarea, .inbox-section input[type="text"] { font-size: 13px; }
+            .account-info h3, .otp-section h3, .inbox-section h3 { font-size: 15px; }
+            .contact-info, .contact-link { font-size: 14px; }
+            .modal-content { width: 95%; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <h1><i class="fas fa-mail-bulk"></i> Riyad Mahfuz</h1>
+        <p class="subtitle">Developed by Riyad Mahfuz</p>
+        
+
+        <!-- Notification Area -->
+        <div class="alert success" id="success-alert">{{ success }}</div>
+        <div class="alert error" id="error-alert">{{ error }}</div>
+
+        <!-- Main Form -->
+        <form method="POST" action="{{ url_for('process') }}">
+            <div class="form-group">
+                <label for="credentials">Enter Credentials (email|password|refresh_token|client_id):</label>
+                <textarea name="credentials" id="credentials" placeholder="email|password|refresh_token|client_id" required></textarea>
+            </div>
+            <button type="submit">Fetch Messages</button>
+        </form>
+
+        <!-- Account Info and Button Group -->
+        {% if messages %}
+            <div class="account-info">
+                <h3 id="email-field">{{ email | e }}</h3>
+                <button class="copy-btn" onclick="copyToClipboard('email-field')">Copy</button>
+            </div>
+            <div class="button-group">
+                <button class="action-btn tooltip" onclick="toggleInbox()" id="inbox-toggle-button">
+                    <i class="fas fa-inbox"></i> Inbox
+                    <span class="tooltiptext">Toggle Inbox Visibility</span>
+                </button>
+                {% if otp_code %}
+                    <button class="action-btn otp tooltip" onclick="copyToClipboard('otp-value')">
+                        <i class="fas fa-key"></i> OTP
+                        <span class="tooltiptext">Copy OTP to Clipboard</span>
+                    </button>
+                {% endif %}
+                <form method="POST" action="{{ url_for('refresh') }}" style="display: inline;">
+                    <input type="hidden" name="email" value="{{ email | e }}">
+                    <input type="hidden" name="password" value="{{ password | e }}">
+                    <input type="hidden" name="refresh_token" value="{{ refresh_token | e }}">
+                    <input type="hidden" name="client_id" value="{{ client_id | e }}">
+                    <button type="submit" class="action-btn refresh tooltip" onclick="refreshInbox()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                        <span class="tooltiptext">Refresh Inbox</span>
+                    </button>
+                </form>
+                <button class="action-btn delete tooltip" onclick="deleteSelected()">
+                    <i class="fas fa-trash-alt"></i> Delete
+                    <span class="tooltiptext">Delete Selected Message</span>
+                </button>
+            </div>
+
+            <!-- OTP Section -->
+            <div class="otp-section">
+                {% if otp_code %}
+                    <h3>OTP: <span id="otp-value">{{ otp_code | e }}</span></h3>
+                    <button onclick="copyToClipboard('otp-value')">Copy</button>
+                {% else %}
+                    <p>No OTP code found.</p>
+                {% endif %}
+            </div>
+
+            <!-- Inbox Section -->
+            <div class="inbox-section" id="inbox" style="display: none;">
+                <h3>Inbox (<span id="message-count">{{ messages | length }}</span>)</h3>
+                <input type="text" id="search-messages" placeholder="Search messages..." oninput="filterMessages()">
+                {% for message in messages %}
+                    <div class="message {% if 'facebook' in message.from | lower %}facebook{% endif %}" onclick="showFullMessage(this)" data-id="{{ message.id | default(loop.index) | e }}" data-body="{{ message.body | e }}">
+                        <p><strong>Subject:</strong> {{ message.subject | e }}</p>
+                        <p><strong>From:</strong> {{ message.from | e }}</p>
+                        <p><strong>Date:</strong> {{ message.date | e }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Contact Section -->
+        <div class="contact-info">
+            <div>© 2025 Riyad Mahfuz Mail Viewer</div>
+            <div class="contact-links">
+                <a href="tel:+8801331373661" class="contact-link phone">
+                    <i class="fas fa-phone"></i>
+                </a>
+                <a href="mailto:xiyad404@gmail.com" class="contact-link email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://facebook.com/xiyad.rd" target="_blank" class="contact-link facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://wa.me/+8801331373661" target="_blank" class="contact-link whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://t.me/xiyadxd" target="_blank" class="contact-link telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Full Message -->
+    <div class="modal" id="message-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <h3 id="modal-subject"></h3>
+            <p id="modal-from"></p>
+            <p id="modal-date"></p>
+            <p id="modal-body"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const successAlert = document.getElementById('success-alert');
+            const errorAlert = document.getElementById('error-alert');
+            if (successAlert.innerText.trim()) {
+                showSuccessAlert(successAlert.innerText);
+            }
+            if (errorAlert.innerText.trim()) {
+                showErrorAlert(errorAlert.innerText);
+            }
+        });
+
+        function showSuccessAlert(message) {
+            const alert = document.getElementById('success-alert');
+            alert.innerText = message;
+            alert.style.display = 'block';
+            setTimeout(() => alert.style.display = 'none', 3000);
+        }
+
+        function showErrorAlert(message) {
+            const alert = document.getElementById('error-alert');
+            alert.innerText = message;
+            alert.style.display = 'block';
+            setTimeout(() => alert.style.display = 'none', 3000);
+        }
+
+        function copyToClipboard(elementId) {
+            const text = elementId === 'email-field' ? '{{ email | e }}' : document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showSuccessAlert('Copied to clipboard!');
+            }).catch(() => {
+                showErrorAlert('Failed to copy.');
+            });
+        }
+
+        function toggleInbox() {
+            const inbox = document.getElementById('inbox');
+            const button = document.getElementById('inbox-toggle-button');
+            inbox.style.display = inbox.style.display === 'none' ? 'block' : 'none';
+            button.innerHTML = inbox.style.display === 'none' ? '<i class="fas fa-inbox"></i> Inbox' : '<i class="fas fa-inbox"></i> Hide Inbox';
+        }
+
+        function filterMessages() {
+            const search = document.getElementById('search-messages').value.toLowerCase();
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(message => {
+                const text = message.innerText.toLowerCase();
+                message.style.display = text.includes(search) ? 'block' : 'none';
+            });
+        }
+
+        function showFullMessage(element) {
+            document.querySelectorAll('.message').forEach(msg => msg.classList.remove('selected'));
+            element.classList.add('selected');
+            const modal = document.getElementById('message-modal');
+            const subject = document.getElementById('modal-subject');
+            const from = document.getElementById('modal-from');
+            const date = document.getElementById('modal-date');
+            const body = document.getElementById('modal-body');
+
+            subject.innerText = element.querySelector('p:nth-child(1)').innerText.replace('Subject: ', '');
+            from.innerText = 'From: ' + element.querySelector('p:nth-child(2)').innerText.replace('From: ', '');
+            date.innerText = 'Date: ' + element.querySelector('p:nth-child(3)').innerText.replace('Date: ', '');
+            body.innerText = element.dataset.body || 'No body content available';
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('message-modal').style.display = 'none';
+        }
+
+        function refreshInbox() {
+            showSuccessAlert('Refreshing inbox...');
+            // Form submission handled by the button's form
+        }
+
+        function deleteSelected() {
+            const selected = document.querySelector('.message.selected');
+            if (!selected) {
+                showErrorAlert('No message selected.');
+                return;
+            }
+            const messageId = selected.dataset.id;
+            fetch('/delete_message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: '{{ email | e }}', message_id: messageId })
+            }).then(response => response.json()).then(data => {
+                if (data.status === 'success') {
+                    selected.remove();
+                    document.getElementById('message-count').innerText = document.querySelectorAll('.message').length;
+                    showSuccessAlert(data.message);
+                } else {
+                    showErrorAlert(data.message);
+                }
+            }).catch(() => {
+                showErrorAlert('Failed to delete message.');
+            });
+        }
+    </script>
+</body>
+</html>
