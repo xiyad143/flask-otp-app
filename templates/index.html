@@ -8,24 +8,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
-            --primary: #4a6bff; /* Vibrant blue for primary elements */
+            --primary: #4a6bff;
             --primary-dark: #3a56cc;
-            --secondary: #e8f0fe; /* Light blue for section backgrounds */
-            --success: #4caf50; /* Green for success alerts */
-            --danger: #f44336; /* Red for error alerts */
-            --warning: #ff9800; /* Orange for warnings */
-            --info: #2196f3; /* Blue for info */
-            --bg: #f5f7ff; /* Light blueish background */
-            --text: #2d3748; /* Dark gray-blue for text */
+            --secondary: #e8f0fe;
+            --success: #4caf50;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --info: #2196f3;
+            --bg: #f5f7ff;
+            --text: #2d3748;
             --text-light: #718096;
-            --accent: #ffffff; /* White for cards */
-            --border: #e2e8f0; /* Light gray for borders */
-            --facebook: #3b5998; /* Facebook brand color */
-            --whatsapp: #25d366; /* WhatsApp brand color */
-            --telegram: #0088cc; /* Telegram brand color */
+            --accent: #ffffff;
+            --border: #e2e8f0;
+            --facebook: #3b5998;
+            --whatsapp: #25d366;
+            --telegram: #0088cc;
         }
 
-        /* Dark mode variables */
         .dark-mode {
             --primary: #5d7bff;
             --primary-dark: #4a6bff;
@@ -124,7 +123,6 @@
             outline: none;
         }
 
-        /* Centered submit button */
         .submit-container {
             display: flex;
             justify-content: center;
@@ -307,44 +305,6 @@
             background: rgba(59, 89, 152, 0.05);
         }
 
-        /* New styles for message preview and full content */
-        .message-preview {
-            margin-top: 8px;
-            color: var(--text-light);
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .message-full {
-            margin-top: 8px;
-            color: var(--text);
-            font-size: 14px;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            display: none;
-        }
-
-        .message-actions {
-            margin-top: 8px;
-            display: flex;
-            gap: 8px;
-        }
-
-        .toggle-btn {
-            padding: 4px 8px;
-            font-size: 12px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .toggle-btn:hover {
-            background: var(--primary-dark);
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -373,7 +333,7 @@
         .modal-content h3 {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottomIGGER: 10px;
             color: var(--primary);
         }
         .modal-content p {
@@ -425,7 +385,6 @@
         .contact-link.whatsapp:hover { color: var(--whatsapp); }
         .contact-link.telegram:hover { color: var(--telegram); }
 
-        /* Dark mode toggle button */
         .theme-toggle {
             position: absolute;
             top: 20px;
@@ -449,6 +408,86 @@
             color: var(--primary);
         }
 
+        /* Toast Notification Styles */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.95;
+            max-width: 350px;
+        }
+        
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+        .toast.warning { background: var(--warning); }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast-icon {
+            font-size: 24px;
+        }
+        
+        .toast-content {
+            flex-grow: 1;
+        }
+        
+        .toast-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+        
+        .toast-message {
+            font-size: 15px;
+        }
+        
+        .toast-otp {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 2px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        .toast-close:hover {
+            opacity: 1;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+
         @media (max-width: 600px) {
             .container { padding: 18px; }
             button, .action-btn { padding: 8px 14px; }
@@ -460,6 +499,23 @@
                 top: 15px;
                 right: 15px;
                 font-size: 18px;
+            }
+            .toast {
+                top: 60px;
+                right: 10px;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .toast {
+                max-width: 100%;
+                width: calc(100% - 20px);
+                right: 10px;
+                transform: translateX(100%);
+            }
+            .toast.show {
+                transform: translateX(0);
             }
         }
     </style>
@@ -474,11 +530,25 @@
         <!-- Header -->
         <h1><i class="fas fa-mail-bulk"></i> Riyad Mahfuz</h1>
         <p class="subtitle">Developed by Riyad Mahfuz</p>
-        
 
         <!-- Notification Area -->
         <div class="alert success" id="success-alert">{{ success }}</div>
         <div class="alert error" id="error-alert">{{ error }}</div>
+
+        <!-- Toast Notification Element -->
+        <div class="toast success" id="otp-toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-icon pulse">
+                <i class="fas fa-shield-alt" aria-hidden="true"></i>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title">NEW OTP RECEIVED! 🔐</div>
+                <div class="toast-message">Your verification code:</div>
+                <div class="toast-otp" id="toast-otp-value"></div>
+            </div>
+            <button class="toast-close" onclick="closeToast()" aria-label="Close notification">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
 
         <!-- Main Form -->
         <form method="POST" action="{{ url_for('process') }}">
@@ -538,17 +608,6 @@
                         <p><strong>Subject:</strong> {{ message.subject | e }}</p>
                         <p><strong>From:</strong> {{ message.from | e }}</p>
                         <p><strong>Date:</strong> {{ message.date | e }}</p>
-                        <div id="message-preview-{{ loop.index }}" class="message-preview">
-                            {{ (message.body | safe).slice(0, 200) }}{% if (message.body | length) > 200 %}...{% endif %}
-                        </div>
-                        <div id="message-full-{{ loop.index }}" class="message-full" style="display: none;">
-                            {{ message.body | safe }}
-                        </div>
-                        <div class="message-actions">
-                            <button onclick="toggleMessageBody(event, {{ loop.index }})" id="toggle-btn-{{ loop.index }}" class="toggle-btn">
-                                View Full
-                            </button>
-                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -578,9 +637,9 @@
     </div>
 
     <!-- Modal for Full Message -->
-    <div class="modal" id="message-modal">
+    <div class="modal" id="message-modal" role="dialog" aria-labelledby="modal-subject" aria-modal="true">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">×</button>
+            <button class="close-btn" onclick="closeModal()" aria-label="Close modal">×</button>
             <h3 id="modal-subject"></h3>
             <p id="modal-from"></p>
             <p id="modal-date"></p>
@@ -594,7 +653,6 @@
         const themeIcon = document.getElementById('theme-icon');
         const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
         
-        // Check localStorage for theme preference or use system preference
         const currentTheme = localStorage.getItem('theme') || 
                            (prefersDarkScheme.matches ? 'dark' : 'light');
         
@@ -605,18 +663,37 @@
             themeIcon.textContent = '🌙';
         }
         
-        // Toggle theme
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
             localStorage.setItem('theme', theme);
-            
-            if (theme === 'dark') {
-                themeIcon.textContent = '☀';
-            } else {
-                themeIcon.textContent = '🌙';
-            }
+            themeIcon.textContent = theme === 'dark' ? '☀' : '🌙';
         });
+
+        // Toast Notification Functions
+        function showOtpToast(otpValue, type = 'success') {
+            const toast = document.getElementById('otp-toast');
+            const otpValueElement = document.getElementById('toast-otp-value');
+            
+            toast.classList.remove('success', 'error', 'warning');
+            toast.classList.add(type);
+            
+            if (!otpValue || otpValue.trim() === '') {
+                otpValueElement.textContent = 'No OTP code available';
+            } else {
+                otpValueElement.textContent = otpValue;
+            }
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                closeToast();
+            }, 7000);
+        }
+
+        function closeToast() {
+            const toast = document.getElementById('otp-toast');
+            toast.classList.remove('show');
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             const successAlert = document.getElementById('success-alert');
@@ -627,6 +704,11 @@
             if (errorAlert.innerText.trim()) {
                 showErrorAlert(errorAlert.innerText);
             }
+            {% if otp_code %}
+                setTimeout(() => {
+                    showOtpToast('{{ otp_code | e }}');
+                }, 1000);
+            {% endif %}
         });
 
         function showSuccessAlert(message) {
@@ -644,12 +726,30 @@
         }
 
         function copyToClipboard(elementId) {
-            const text = elementId === 'email-field' ? '{{ email | e }}' : document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                showSuccessAlert('Copied to clipboard!');
-            }).catch(() => {
-                showErrorAlert('Failed to copy.');
-            });
+            const text = elementId === 'email-field' ? '{{ email | e }}' : document.getElementById(elementId)?.innerText;
+            if (!text) {
+                showErrorAlert('No text to copy.');
+                return;
+            }
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccessAlert('Copied to clipboard!');
+                }).catch(() => {
+                    showErrorAlert('Failed to copy.');
+                });
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showSuccessAlert('Copied to clipboard!');
+                } catch (err) {
+                    showErrorAlert('Failed to copy.');
+                }
+                document.body.removeChild(textarea);
+            }
         }
 
         function toggleInbox() {
@@ -680,7 +780,7 @@
             subject.innerText = element.querySelector('p:nth-child(1)').innerText.replace('Subject: ', '');
             from.innerText = 'From: ' + element.querySelector('p:nth-child(2)').innerText.replace('From: ', '');
             date.innerText = 'Date: ' + element.querySelector('p:nth-child(3)').innerText.replace('Date: ', '');
-            body.innerHTML = element.dataset.body || 'No body content available';
+            body.innerText = element.dataset.body || 'No body content available';
 
             modal.style.display = 'flex';
         }
@@ -691,7 +791,6 @@
 
         function refreshInbox() {
             showSuccessAlert('Refreshing inbox...');
-            // Form submission handled by the button's form
         }
 
         function deleteSelected() {
@@ -710,31 +809,13 @@
                     selected.remove();
                     document.getElementById('message-count').innerText = document.querySelectorAll('.message').length;
                     showSuccessAlert(data.message);
+                    closeModal();
                 } else {
                     showErrorAlert(data.message);
                 }
             }).catch(() => {
                 showErrorAlert('Failed to delete message.');
             });
-        }
-
-        // New function to toggle message body visibility
-        function toggleMessageBody(event, index) {
-            event.stopPropagation(); // Prevent triggering the parent div's click event
-            
-            const preview = document.getElementById(`message-preview-${index}`);
-            const full = document.getElementById(`message-full-${index}`);
-            const button = document.getElementById(`toggle-btn-${index}`);
-            
-            if (full.style.display === 'none') {
-                preview.style.display = 'none';
-                full.style.display = 'block';
-                button.textContent = 'Hide';
-            } else {
-                preview.style.display = 'block';
-                full.style.display = 'none';
-                button.textContent = 'View Full';
-            }
         }
     </script>
 </body>
