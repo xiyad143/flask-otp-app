@@ -25,6 +25,18 @@
             --telegram: #0088cc; /* Telegram brand color */
         }
 
+        /* Dark mode variables */
+        .dark-mode {
+            --primary: #5d7bff;
+            --primary-dark: #4a6bff;
+            --secondary: #1a2236;
+            --bg: #0f172a;
+            --text: #e2e8f0;
+            --text-light: #94a3b8;
+            --accent: #1e293b;
+            --border: #334155;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
@@ -36,6 +48,7 @@
             padding: 20px;
             color: var(--text);
             line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
         }
 
         .container {
@@ -46,6 +59,8 @@
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border);
+            transition: background 0.3s, border-color 0.3s;
+            position: relative;
         }
 
         h1 {
@@ -101,6 +116,7 @@
             resize: vertical;
             background: var(--accent);
             transition: border 0.3s, box-shadow 0.3s;
+            color: var(--text);
         }
         .form-group textarea:focus {
             border-color: var(--primary);
@@ -108,6 +124,12 @@
             outline: none;
         }
 
+        /* Centered submit button */
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
         button {
             padding: 10px 18px;
             border: none;
@@ -226,6 +248,11 @@
         .otp-section button {
             padding: 6px 12px;
             font-size: 12px;
+            float: left;
+            margin-right: 10px;
+        }
+        .otp-section p {
+            clear: both;
         }
 
         .inbox-section {
@@ -250,6 +277,7 @@
             margin-bottom: 10px;
             background: var(--accent);
             transition: border 0.3s, box-shadow 0.3s;
+            color: var(--text);
         }
         .inbox-section input[type="text"]:focus {
             border-color: var(--primary);
@@ -359,6 +387,30 @@
         .contact-link.whatsapp:hover { color: var(--whatsapp); }
         .contact-link.telegram:hover { color: var(--telegram); }
 
+        /* Dark mode toggle button */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: all 0.3s;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .theme-toggle:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
         @media (max-width: 600px) {
             .container { padding: 18px; }
             button, .action-btn { padding: 8px 14px; }
@@ -366,11 +418,21 @@
             .account-info h3, .otp-section h3, .inbox-section h3 { font-size: 15px; }
             .contact-info, .contact-link { font-size: 14px; }
             .modal-content { width: 95%; padding: 15px; }
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            <span id="theme-icon">🌙</span>
+        </button>
+
         <!-- Header -->
         <h1><i class="fas fa-mail-bulk"></i> Riyad Mahfuz</h1>
         <p class="subtitle">Developed by Riyad Mahfuz</p>
@@ -386,7 +448,9 @@
                 <label for="credentials">Enter Credentials (email|password|refresh_token|client_id):</label>
                 <textarea name="credentials" id="credentials" placeholder="email|password|refresh_token|client_id" required></textarea>
             </div>
-            <button type="submit">Fetch Messages</button>
+            <div class="submit-container">
+                <button type="submit">Fetch Messages</button>
+            </div>
         </form>
 
         <!-- Account Info and Button Group -->
@@ -481,6 +545,35 @@
     </div>
 
     <script>
+        // Dark mode functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check localStorage for theme preference or use system preference
+        const currentTheme = localStorage.getItem('theme') || 
+                           (prefersDarkScheme.matches ? 'dark' : 'light');
+        
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.textContent = '☀';
+        } else {
+            themeIcon.textContent = '🌙';
+        }
+        
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀';
+            } else {
+                themeIcon.textContent = '🌙';
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             const successAlert = document.getElementById('success-alert');
             const errorAlert = document.getElementById('error-alert');
