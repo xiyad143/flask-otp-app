@@ -307,6 +307,44 @@
             background: rgba(59, 89, 152, 0.05);
         }
 
+        /* New styles for message preview and full content */
+        .message-preview {
+            margin-top: 8px;
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message-full {
+            margin-top: 8px;
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            display: none;
+        }
+
+        .message-actions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .toggle-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover {
+            background: var(--primary-dark);
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -466,7 +504,7 @@
                 </button>
                 {% if otp_code %}
                     <button class="action-btn otp tooltip" onclick="copyToClipboard('otp-value')">
-                        <i class="fas fa-key"></i> OTP
+                        <i class="fas fa-key"></i> OTP Copy
                         <span class="tooltiptext">Copy OTP to Clipboard</span>
                     </button>
                 {% endif %}
@@ -480,17 +518,12 @@
                         <span class="tooltiptext">Refresh Inbox</span>
                     </button>
                 </form>
-                <button class="action-btn delete tooltip" onclick="deleteSelected()">
-                    <i class="fas fa-trash-alt"></i> Delete
-                    <span class="tooltiptext">Delete Selected Message</span>
-                </button>
             </div>
 
             <!-- OTP Section -->
             <div class="otp-section">
                 {% if otp_code %}
                     <h3>OTP: <span id="otp-value">{{ otp_code | e }}</span></h3>
-                    <button onclick="copyToClipboard('otp-value')">Copy</button>
                 {% else %}
                     <p>No OTP code found.</p>
                 {% endif %}
@@ -505,6 +538,17 @@
                         <p><strong>Subject:</strong> {{ message.subject | e }}</p>
                         <p><strong>From:</strong> {{ message.from | e }}</p>
                         <p><strong>Date:</strong> {{ message.date | e }}</p>
+                        <div id="message-preview-{{ loop.index }}" class="message-preview">
+                            {{ (message.body | safe).slice(0, 200) }}{% if (message.body | length) > 200 %}...{% endif %}
+                        </div>
+                        <div id="message-full-{{ loop.index }}" class="message-full" style="display: none;">
+                            {{ message.body | safe }}
+                        </div>
+                        <div class="message-actions">
+                            <button onclick="toggleMessageBody(event, {{ loop.index }})" id="toggle-btn-{{ loop.index }}" class="toggle-btn">
+                                View Full
+                            </button>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -636,7 +680,7 @@
             subject.innerText = element.querySelector('p:nth-child(1)').innerText.replace('Subject: ', '');
             from.innerText = 'From: ' + element.querySelector('p:nth-child(2)').innerText.replace('From: ', '');
             date.innerText = 'Date: ' + element.querySelector('p:nth-child(3)').innerText.replace('Date: ', '');
-            body.innerText = element.dataset.body || 'No body content available';
+            body.innerHTML = element.dataset.body || 'No body content available';
 
             modal.style.display = 'flex';
         }
@@ -672,6 +716,25 @@
             }).catch(() => {
                 showErrorAlert('Failed to delete message.');
             });
+        }
+
+        // New function to toggle message body visibility
+        function toggleMessageBody(event, index) {
+            event.stopPropagation(); // Prevent triggering the parent div's click event
+            
+            const preview = document.getElementById(`message-preview-${index}`);
+            const full = document.getElementById(`message-full-${index}`);
+            const button = document.getElementById(`toggle-btn-${index}`);
+            
+            if (full.style.display === 'none') {
+                preview.style.display = 'none';
+                full.style.display = 'block';
+                button.textContent = 'Hide';
+            } else {
+                preview.style.display = 'block';
+                full.style.display = 'none';
+                button.textContent = 'View Full';
+            }
         }
     </script>
 </body>
